@@ -15,6 +15,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import type { Employee } from '../../types/employee'
+import { EmployeeCard } from './EmployeeCard'
 
 interface EmployeeTableProps {
   employees: Employee[]
@@ -31,32 +32,7 @@ export const EmployeeTable = ({ employees, onEdit, onDelete }: EmployeeTableProp
     return (
       <Box display="flex" flexDirection="column" gap={2}>
         {employees.map((employee) => (
-          <Paper key={employee.id} sx={{ p: 2 }}>
-            <Box mb={1}>
-              <strong>{employee.name}</strong>
-            </Box>
-            <Box fontSize="0.875rem" color="text.secondary" mb={1}>
-              Employee ID: {employee.id}
-            </Box>
-            <Box fontSize="0.875rem" color="textSecondary" mb={1}>
-              <div>📧 {employee.email}</div>
-              <div>📱 {employee.mobile}</div>
-              <div>🌍 {employee.country}</div>
-              <div>📍 {employee.state}, {employee.district}</div>
-            </Box>
-            <Box display="flex" gap={1} justifyContent="flex-end">
-              <Tooltip title="Edit">
-                <IconButton size="small" onClick={() => onEdit(employee)} color="primary">
-                  <EditIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete">
-                <IconButton size="small" onClick={() => onDelete(employee)} color="error">
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </Paper>
+          <EmployeeCard key={employee.id} employee={employee} onEdit={onEdit} onDelete={onDelete} />
         ))}
       </Box>
     )

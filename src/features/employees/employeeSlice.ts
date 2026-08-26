@@ -152,7 +152,7 @@ const employeeSlice = createSlice({
       })
       .addCase(updateEmployee.fulfilled, (state, action) => {
         state.mutationLoading = false
-        employeeAdapter.updateOne(state, { id: action.payload.id, changes: action.payload })
+        employeeAdapter.setOne(state, action.payload)
       })
       .addCase(updateEmployee.rejected, (state, action) => {
         state.mutationLoading = false

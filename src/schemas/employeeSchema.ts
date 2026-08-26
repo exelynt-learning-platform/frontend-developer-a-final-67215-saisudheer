@@ -16,8 +16,8 @@ export const employeeSchema = z.object({
     .string()
     .min(1, 'Mobile is required')
     .min(7, 'Mobile must be at least 7 characters')
-    .max(15, 'Mobile must not exceed 15 characters')
-    .regex(/^[0-9\-+ ()]+$/, 'Mobile must contain only digits, spaces, and common phone characters'),
+    .max(20, 'Mobile must not exceed 20 characters')
+    .regex(/^\+?[0-9\s()+-]+$/, 'Mobile must contain only digits, spaces, and common phone characters'),
   country: z.string().min(1, 'Country is required').max(100, 'Country must not exceed 100 characters'),
   state: z.string().min(1, 'State is required').max(100, 'State must not exceed 100 characters'),
   district: z.string().min(1, 'District is required').max(100, 'District must not exceed 100 characters'),

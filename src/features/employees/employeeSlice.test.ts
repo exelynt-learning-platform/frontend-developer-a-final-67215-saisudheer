@@ -12,19 +12,18 @@ import employeeReducer, {
 import type { EmployeeState } from './employeeSlice'
 import type { Employee } from '../../types/employee'
 
-describe('employeeSlice', () => {
-  interface TestStore {
-    employees: EmployeeState
-  }
+const createTestStore = () =>
+  configureStore({
+    reducer: {
+      employees: employeeReducer,
+    },
+  })
 
-  let store: ReturnType<typeof configureStore<TestStore>>
+describe('employeeSlice', () => {
+  let store: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    store = configureStore<TestStore>({
-      reducer: {
-        employees: employeeReducer,
-      },
-    })
+    store = createTestStore()
   })
 
   describe('initial state', () => {

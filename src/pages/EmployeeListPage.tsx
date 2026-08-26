@@ -38,6 +38,7 @@ export const EmployeeListPage = () => {
     (location.state as { notification?: string } | null)?.notification ?? null,
   )
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null)
+  const [searchInput, setSearchInput] = useState('')
   const [searchId, setSearchId] = useState<string | null>(null)
 
   const employees = useAppSelector(selectAllEmployees)
@@ -67,6 +68,7 @@ export const EmployeeListPage = () => {
   }
 
   const handleClearSearch = () => {
+    setSearchInput('')
     setSearchId(null)
     dispatch(clearSearchResult())
   }
@@ -114,7 +116,13 @@ export const EmployeeListPage = () => {
         }
       />
 
-      <EmployeeSearch onSearch={handleSearch} onClear={handleClearSearch} loading={searchLoading} />
+      <EmployeeSearch
+        value={searchInput}
+        onChange={setSearchInput}
+        onSearch={handleSearch}
+        onClear={handleClearSearch}
+        loading={searchLoading}
+      />
 
       {displayLoading && <LoadingState message={isSearching ? 'Searching employee...' : 'Loading employees...'} />}
 

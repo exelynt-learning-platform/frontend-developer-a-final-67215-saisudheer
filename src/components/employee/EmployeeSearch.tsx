@@ -1,25 +1,24 @@
 import { Box, TextField, Button, Stack, CircularProgress } from '@mui/material'
-import { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 
 interface EmployeeSearchProps {
+  value: string
+  onChange: (value: string) => void
   onSearch: (id: string) => void
   onClear: () => void
   loading?: boolean
 }
 
-export const EmployeeSearch = ({ onSearch, onClear, loading = false }: EmployeeSearchProps) => {
-  const [searchId, setSearchId] = useState('')
-
+export const EmployeeSearch = ({ value, onChange, onSearch, onClear, loading = false }: EmployeeSearchProps) => {
   const handleSearch = () => {
-    if (searchId.trim()) {
-      onSearch(searchId.trim())
+    if (value.trim()) {
+      onSearch(value.trim())
     }
   }
 
   const handleClear = () => {
-    setSearchId('')
+    onChange('')
     onClear()
   }
 
@@ -42,8 +41,8 @@ export const EmployeeSearch = ({ onSearch, onClear, loading = false }: EmployeeS
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="flex-end">
         <TextField
           label="Employee ID"
-          value={searchId}
-          onChange={(e) => setSearchId(e.target.value)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           onKeyPress={handleKeyPress}
           disabled={loading}
           placeholder="Enter employee ID..."
@@ -55,7 +54,7 @@ export const EmployeeSearch = ({ onSearch, onClear, loading = false }: EmployeeS
             variant="contained"
             startIcon={loading ? <CircularProgress size={20} /> : <SearchIcon />}
             onClick={handleSearch}
-            disabled={loading || !searchId.trim()}
+            disabled={loading || !value.trim()}
             sx={{ minWidth: 100 }}
           >
             Search

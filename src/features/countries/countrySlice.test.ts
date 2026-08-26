@@ -4,19 +4,18 @@ import countryReducer, { fetchCountries } from './countrySlice'
 import type { CountryState } from './countrySlice'
 import type { Country } from '../../types/country'
 
-describe('countrySlice', () => {
-  interface TestStore {
-    countries: CountryState
-  }
+const createTestStore = () =>
+  configureStore({
+    reducer: {
+      countries: countryReducer,
+    },
+  })
 
-  let store: ReturnType<typeof configureStore<TestStore>>
+describe('countrySlice', () => {
+  let store: ReturnType<typeof createTestStore>
 
   beforeEach(() => {
-    store = configureStore<TestStore>({
-      reducer: {
-        countries: countryReducer,
-      },
-    })
+    store = createTestStore()
   })
 
   describe('initial state', () => {
